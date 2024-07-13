@@ -1,0 +1,28 @@
+h1 {
+    color: red;
+}
+form {
+    padding: 50px;
+    background-color: #ccc;
+}
+form input[type="text"] , form input[type="number"] {
+    width: 80%;
+    height: 35px;
+    margin-bottom: 5px;
+}
+form button, form input[type="button"], form input[type="button"] {
+    width: 150px;
+    height: 35px;
+    background: green;
+    color: #fff;
+}
+.flex {
+    display: flex;
+    justify-content: center;
+    
+}
+#txtKetQua {
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+}
