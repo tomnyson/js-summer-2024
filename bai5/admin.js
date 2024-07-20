@@ -21,9 +21,11 @@ for (const user of dsTaiKhoan) {
             <td>${user.username}</td>
             <td>${user.password}</td>
             <td>
+             <a href="edit-user.html?username=${user.username}">
               <button class="btn btn-primary" type="button">
-              <i class="fa fa-pen"></i>
+               <i class="fa fa-pen"></i>
               </button>
+              <a>
               <button onClick="deleteUser('${user.username}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
             </td>
         </tr>
@@ -78,13 +80,14 @@ for (const user of newListUser) {
             <td>${user.password}</td>
             <td>
               <button class="btn btn-primary" type="button">
-              <i class="fa fa-pen"></i>
+              <a href="edit-user.html"> <i class="fa fa-pen"></i><a>
+             
               </button>
               <button onClick="deleteUser('${user.username}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
             </td>
         </tr>
     `
-  
+
 }
 elmTbUsers.innerHTML = result
 localStorage.setItem("users", JSON.stringify(newListUser))
