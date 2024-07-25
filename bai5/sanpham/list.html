@@ -23,22 +23,19 @@
         <button type="button" id="btnDangXuat"><a href="index.html">dang xuat</a></button>
       </div>
       <div id="currentUser"></div>
-      <h3>List User</h3>
-      <a href="sanpham/list.html">List Product</a>
+      <a class="btn btn-primary" href="create.html">add new</a>
+      <h3>List Product</h3>
       <table class="table">
         <thead>
           <tr>
-            <th>username</th>
-            <th>password</th>
-            <th>action</th>
+            <th>id</th>
+            <th>name</th>
+            <th>price import</th>
+            <th>price</th>
+            <th>image</th>
           </tr>
         </thead>
-        <tbody id="tb_users">
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-          </tr>
-        </tbody>
+        <tbody id="tb_sanpham"></tbody>
       </table>
     </div>
   </body>
@@ -52,5 +49,5 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"
   ></script>
-  <script src="./admin.js"></script>
+  <script src="./sanpham.js"></script>
 </html>
