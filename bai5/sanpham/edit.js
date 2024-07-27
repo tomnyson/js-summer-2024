@@ -63,6 +63,8 @@ function renderValueToForm(user) {
 
 renderValueToForm(editUser)
 
+
+
 /**
  * nhấn cập nhật user */
 const elmUpdate = document.getElementById('btnUpdate')
@@ -100,3 +102,4 @@ if (elmUpdate) {
     }
   })
 }
+
