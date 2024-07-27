@@ -7,31 +7,42 @@ if(!checkuser) {
 
 
 function initData() {
-    const users = localStorage.getItem('users')
-    if (!users) {
+    const products = localStorage.getItem('products')
+    if (!products) {
       return []
     }
-    return JSON.parse(users)
+    return JSON.parse(products)
   }
-const dsTaiKhoan = initData()
-const elmTbUsers = document.getElementById('tb_users')
+const dsProducts = initData()
+const eleProducts = document.getElementById('tb_sanpham')
 let result = "";
-for (const user of dsTaiKhoan) {
+for (const prd of dsProducts) {
+    const link = prd.image || 'https://placehold.co/600x400'
     result+= `<tr>
-            <td>${user.username}</td>
-            <td>${user.password}</td>
+            <td>${prd.code}</td>
+            <td>${prd.name}</td>
+            <td>${prd.price}</td>
+            <td>${prd.price_import}</td>
+            <td>${prd.sale}</td>
+            <td><img width="200" src="${link}"/></td>
+            <td>${prd.description.substring(0,100)}</td>
             <td>
-             <a href="edit-user.html?username=${user.username}">
+              <a href="detail.html?code=${prd.code}">
+              <button class="btn btn-primary" type="button">
+               <i class="fa fa-eye"></i>
+              </button>
+              </a>
+             <a href="edit-user.html?username=${prd.code}">
               <button class="btn btn-primary" type="button">
                <i class="fa fa-pen"></i>
               </button>
               <a>
-              <button onClick="deleteUser('${user.username}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
+              <button onClick="deleteUser('${prd.code}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
             </td>
         </tr>
     `
 }
-elmTbUsers.innerHTML = result
+eleProducts.innerHTML = result
 // hien thi thong tin user dang dang nhap
 renderUserLogin(checkuser)
 function renderUserLogin(username) {

@@ -15,30 +15,18 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <style>
+      .price {
+        font-weight: bold;
+        font-size: 20px;
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-      <div class="d-flex justify-content-between">
-        <h3>Tài khoản cá nhân:</h3>
-        <button type="button" id="btnDangXuat"><a href="index.html">dang xuat</a></button>
-      </div>
-      <div id="currentUser"></div>
-      <a class="btn btn-primary" href="create.html">add new</a>
-      <h3>List Product</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>price import</th>
-            <th>price</th>
-            <th>sale</th>
-            <th>image</th>
-            <th>description</th>
-          </tr>
-        </thead>
-        <tbody id="tb_sanpham"></tbody>
-      </table>
+      <h2>Detail product</h2>
+      <div id="detail"></div>
     </div>
   </body>
 
@@ -51,5 +39,5 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"
   ></script>
-  <script src="./sanpham.js"></script>
+  <script src="./detail.js"></script>
 </html>
