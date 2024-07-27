@@ -1,11 +1,11 @@
 function initData() {
-  const users = localStorage.getItem('products')
+  const users = localStorage.getItem('users');
   if (!users) {
     return []
   }
   return JSON.parse(users)
 }
-const products = initData()
+const users = initData()
 // lấy giá trị từ query string username=admin
 const urlParams = new URLSearchParams(window.location.search)
 const code = urlParams.get('code')
@@ -53,7 +53,7 @@ function addCart(item) {
     // case 1: đã có giỏ hàng
     let newCart = currentUser.carts;
     let isCheck = false;
-    
+
     for (let i = 0; i < newCart.length; i++) {
       if (newCart[i].code === item.code) 
         { 
@@ -120,3 +120,4 @@ function renderViewDetail(product) {
   
  `
 }
+

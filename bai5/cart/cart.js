@@ -1,5 +1,5 @@
-const checkuser =localStorage.getItem('currentUser');
-if(!checkuser) {
+const username =localStorage.getItem('currentUser');
+if(!username) {
  window.location.href = 'index.html'
 }
 // localStorage.setItem('currentUser',elmusername)
@@ -7,44 +7,46 @@ if(!checkuser) {
 
 
 function initData() {
-    const products = localStorage.getItem('products')
-    if (!products) {
+    const users = localStorage.getItem('users')
+    if (!users) {
       return []
     }
-    return JSON.parse(products)
+    return JSON.parse(users)
   }
-const dsProducts = initData()
+const dsTaiKhoan = initData()
+const currentUser = ktUsername(username)
+console.log(currentUser)
 const eleProducts = document.getElementById('tb_sanpham')
 let result = "";
-for (const prd of dsProducts) {
-    const link = prd.image || 'https://placehold.co/600x400'
-    result+= `<tr>
-            <td>${prd.code}</td>
-            <td>${prd.name}</td>
-            <td>${prd.price}</td>
-            <td>${prd.price_import}</td>
-            <td>${prd.sale}</td>
-            <td><img width="200" src="${link}"/></td>
-            <td>${prd.description.substring(0,100)}</td>
-            <td>
-              <a href="detail.html?code=${prd.code}">
-              <button class="btn btn-primary" type="button">
-               <i class="fa fa-eye"></i>
-              </button>
-              </a>
-             <a href="edit-user.html?username=${prd.code}">
-              <button class="btn btn-primary" type="button">
-               <i class="fa fa-pen"></i>
-              </button>
-              <a>
-              <button onClick="deleteUser('${prd.code}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
-            </td>
-        </tr>
-    `
-}
-eleProducts.innerHTML = result
+// for (const prd of dsProducts) {
+//     const link = prd.image || 'https://placehold.co/600x400'
+//     result+= `<tr>
+//             <td>${prd.code}</td>
+//             <td>${prd.name}</td>
+//             <td>${prd.price}</td>
+//             <td>${prd.price_import}</td>
+//             <td>${prd.sale}</td>
+//             <td><img width="200" src="${link}"/></td>
+//             <td>${prd.description.substring(0,100)}</td>
+//             <td>
+//               <a href="detail.html?code=${prd.code}">
+//               <button class="btn btn-primary" type="button">
+//                <i class="fa fa-eye"></i>
+//               </button>
+//               </a>
+//              <a href="edit-user.html?username=${prd.code}">
+//               <button class="btn btn-primary" type="button">
+//                <i class="fa fa-pen"></i>
+//               </button>
+//               <a>
+//               <button onClick="deleteUser('${prd.code}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
+//             </td>
+//         </tr>
+//     `
+// }
+
 // hien thi thong tin user dang dang nhap
-renderUserLogin(checkuser)
+renderUserLogin(username)
 function renderUserLogin(username) {
   elmCurrentUser = document.getElementById('currentUser')
 
@@ -71,36 +73,36 @@ if (elmDangXuat){
   })
 }
 
-function deleteUser(username) {
-  /**
-   * 
-   */
-  function ktTaoKhoan(user) {
-    console.log('delete user',user)
-    return user.username !== username;
+
+function ktUsername(username) {
+  for (let i = 0; i < dsTaiKhoan.length; i++) {
+    if (username == dsTaiKhoan[i].username) {
+      return dsTaiKhoan[i]
+    }
   }
-  console.log("dsTaiKhoan",dsTaiKhoan)
-  const newListUser = dsTaiKhoan.filter(ktTaoKhoan)
-  console.log('newListUser',newListUser)
-  alert("đã xóa thành công")
-  const elmTbUsers = document.getElementById('tb_users')
-let result = "";
-for (const user of newListUser) {
+  return null
+}
+renderViewCarts()
+function renderViewCarts() {
+  for (const item of currentUser.carts) {
+    const link = item.image || 'https://placehold.co/600x400'
     result+= `<tr>
-            <td>${user.username}</td>
-            <td>${user.password}</td>
+            <td>${item.code}</td>
+            <td>${item.name}</td>
+             <td><img src='${link}' width="100"/></td>
+            <td>${item.price}</td>
+            <td>${item.quantity}</td>
             <td>
+             <a href="edit-user.html?username=${item.code}">
               <button class="btn btn-primary" type="button">
-              <a href="edit-user.html"> <i class="fa fa-pen"></i><a>
-             
+               <i class="fa fa-pen"></i>
               </button>
-              <button onClick="deleteUser('${user.username}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
+              <a>
+              <button onClick="deleteUser('${item.code}')" class="btn btn-danger" type="button"> <i class="fa fa-trash"></i></button>
             </td>
         </tr>
     `
-
+    const eleCarts = document.getElementById('tb_carts')
+    eleCarts.innerHTML = result
 }
-elmTbUsers.innerHTML = result
-localStorage.setItem("users", JSON.stringify(newListUser))
 }
-
