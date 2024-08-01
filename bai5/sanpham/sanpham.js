@@ -25,7 +25,7 @@ for (const prd of dsProducts) {
             <td>${prd.price_import}</td>
             <td>${prd.sale}</td>
             <td><img width="200" src="${link}"/></td>
-            <td>${prd.description.substring(0,100)}</td>
+            <td>${prd.description}</td>
             <td>
               <a href="detail.html?code=${prd.code}">
               <button class="btn btn-primary" type="button">

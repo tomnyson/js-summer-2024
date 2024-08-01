@@ -1,14 +1,17 @@
 function initData() {
-  const users = localStorage.getItem('users');
-  if (!users) {
+  const products = localStorage.getItem('products');
+  if (!products) {
     return []
   }
-  return JSON.parse(users)
+  return JSON.parse(products)
 }
-const users = initData()
-// lấy giá trị từ query string username=admin
 const urlParams = new URLSearchParams(window.location.search)
 const code = urlParams.get('code')
+const products = initData()
+const product = ktProduct(code)
+// lấy giá trị từ query string username=admin
+
+
 function ktProduct(code) {
   for (let i = 0; i < products.length; i++) {
     if (code == products[i].code) {
@@ -18,7 +21,7 @@ function ktProduct(code) {
   return null
 }
 
-const product = ktProduct(code)
+
 if (product) {
   console.log(product)
   renderViewDetail(product)

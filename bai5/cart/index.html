@@ -15,6 +15,16 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <style>
+      .bottom-cart {
+        display: flex;
+        justify-content: space-between;
+      }
+      #total {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -37,6 +47,10 @@
         </thead>
         <tbody id="tb_carts"></tbody>
       </table>
+      <div class="bottom-cart">
+        <a class="btn btn-primary" href="../checkout/index.html" target="_blank">Checkout</a>
+        <span id="total">Total: 30000vnd</span>
+      </div>
     </div>
   </body>
 

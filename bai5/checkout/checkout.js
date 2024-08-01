@@ -89,7 +89,6 @@ function renderViewCarts() {
     total += item.price * item.quantity
     const link = item.image || 'https://placehold.co/600x400'
     result+= `<tr>
-            <td>${item.code}</td>
             <td>${item.name}</td>
              <td><img src='${link}' width="100"/></td>
             <td>${item.price}</td>
@@ -112,3 +111,15 @@ function renderViewCarts() {
     console.log(total)
 }
 }
+/**
+ * orders: [
+ *  {
+   * address
+   * phone
+   * note
+   * items: [
+   * ...carts
+   * ]
+ * }
+ * }]
+ */
