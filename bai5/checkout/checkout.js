@@ -1,23 +1,21 @@
-const username =localStorage.getItem('currentUser');
-if(!username) {
- window.location.href = 'index.html'
+const username = localStorage.getItem('currentUser')
+if (!username) {
+  window.location.href = 'index.html'
 }
 // localStorage.setItem('currentUser',elmusername)
 
-
-
 function initData() {
-    const users = localStorage.getItem('users')
-    if (!users) {
-      return []
-    }
-    return JSON.parse(users)
+  const users = localStorage.getItem('users')
+  if (!users) {
+    return []
   }
+  return JSON.parse(users)
+}
 const dsTaiKhoan = initData()
 const currentUser = ktUsername(username)
 console.log(currentUser)
 const eleProducts = document.getElementById('tb_sanpham')
-let result = "";
+let result = ''
 // for (const prd of dsProducts) {
 //     const link = prd.image || 'https://placehold.co/600x400'
 //     result+= `<tr>
@@ -51,7 +49,7 @@ function renderUserLogin(username) {
   elmCurrentUser = document.getElementById('currentUser')
 
   for (let i = 0; i < dsTaiKhoan.length; i++) {
-    if (username == dsTaiKhoan[i].username ) {
+    if (username == dsTaiKhoan[i].username) {
       elmCurrentUser.innerHTML = `
       <p>username: ${dsTaiKhoan[i].username}<p>
       <p>password: ${dsTaiKhoan[i].password}<p>
@@ -61,18 +59,13 @@ function renderUserLogin(username) {
   }
 }
 
-const elmDangXuat = document.getElementById("btnDangXuat")
-if (elmDangXuat){
+const elmDangXuat = document.getElementById('btnDangXuat')
+if (elmDangXuat) {
   elmCurrentUser = document.getElementById('currentUser')
   elmDangXuat.addEventListener('click', function () {
-    
-        localStorage.removeItem('currentUser')
-    
-      
-    
+    localStorage.removeItem('currentUser')
   })
 }
-
 
 function ktUsername(username) {
   for (let i = 0; i < dsTaiKhoan.length; i++) {
@@ -82,13 +75,14 @@ function ktUsername(username) {
   }
   return null
 }
+let total = 0
 renderViewCarts()
+
 function renderViewCarts() {
-  let total = 0;
   for (const item of currentUser.carts) {
     total += item.price * item.quantity
     const link = item.image || 'https://placehold.co/600x400'
-    result+= `<tr>
+    result += `<tr>
             <td>${item.name}</td>
              <td><img src='${link}' width="100"/></td>
             <td>${item.price}</td>
@@ -103,23 +97,91 @@ function renderViewCarts() {
             </td>
         </tr>
     `
-    
+
     const eleCarts = document.getElementById('tb_carts')
     eleCarts.innerHTML = result
     const eleTotal = document.getElementById('total')
     eleTotal.innerHTML = `Total: ${total} vnd`
     console.log(total)
+  }
 }
+
+const elmbtnCheckOut = document.getElementById('btnCheckOutClick')
+if (elmbtnCheckOut) {
+  elmbtnCheckOut.addEventListener('click', function () {
+    //b1: lay thong tin form checkout
+    const elmName = document.getElementById('name').value
+    const elmEmail = document.getElementById('email').value
+    const elmPhone = document.getElementById('phone').value
+    const elmAddress = document.getElementById('address').value
+    const elmNote = document.getElementById('note').value
+    console.log(elmPhone, elmAddress, elmNote, elmName, elmPhone)
+    const username = localStorage.getItem('currentUser')
+    const currentUser = ktUsername(username)
+    // đã mua trước đó chưa nếu có
+  if (currentUser.orders && currentUser.orders.length > 0) {
+    currentUser.orders.push(
+      {
+        name: elmName,
+        email: elmEmail,
+        phone: elmPhone,
+        note: elmNote,
+        address: elmAddress,
+        total: total,
+        status: 'chờ xác nhận',
+        items: currentUser.carts,
+      })
+      currentUser.carts = []
+      for (let i = 0; i < dsTaiKhoan.length; i++) {
+        if (username == dsTaiKhoan[i].username) {
+          dsTaiKhoan[i] = currentUser
+          localStorage.setItem('users', JSON.stringify(dsTaiKhoan))
+          alert('đã mua hàng thành công')
+           window.location.href = '../sanpham/list.html'
+        }
+      }
+  } else {
+    // case 2: chưa có giỏ hàng
+    currentUser.orders = [
+      {
+        name: elmName,
+        email: elmEmail,
+        phone: elmPhone,
+        note: elmNote,
+        address: elmAddress,
+        total: total,
+        status: 'chờ xác nhận',
+        items: currentUser.carts,
+      },
+      currentUser.carts = []
+    ]
+    for (let i = 0; i < dsTaiKhoan.length; i++) {
+      if (username == dsTaiKhoan[i].username) {
+        dsTaiKhoan[i] = currentUser
+        localStorage.setItem('users', JSON.stringify(dsTaiKhoan))
+        alert('đã mua hàng thành công')
+         window.location.href = '../sanpham/list.html'
+      }
+    }
+  }
+    //b2: lưu đơn hàng
+    /**
+     * orders: [
+     *  {
+     * address
+     * phone
+     * note
+     * items: [
+     * ...carts
+     * ]
+     * }
+     * }]
+     */
+    /**
+     * b1: lay current user hien tai
+     * b2: kiem tra co order chưa nếu chưa thì tạo mới có thì push vào
+     */
+    //b3 xóa giỏ hàng -> trang thông báo mua thành công
+  })
 }
-/**
- * orders: [
- *  {
-   * address
-   * phone
-   * note
-   * items: [
-   * ...carts
-   * ]
- * }
- * }]
- */
+// alert('hello')

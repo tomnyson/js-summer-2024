@@ -33,7 +33,7 @@
         <button type="button" id="btnDangXuat"><a href="index.html">dang xuat</a></button>
       </div>
       <div id="currentUser"></div>
-      <a class="btn btn-primary" href="sanpham/list.html">continue shopping</a>
+      <a class="btn btn-primary" href="../sanpham/list.html">continue shopping</a>
       <h3>List Checkout</h3>
       <div class="row">
         <div class="col col-xs-6">
@@ -44,12 +44,7 @@
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"
-              />
+              <input type="email" class="form-control" id="email" placeholder="name@example.com" />
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Phone</label>
@@ -66,7 +61,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="adress"
+                id="address"
                 placeholder="enter address"
                 required
               />
@@ -75,7 +70,9 @@
               <label for="exampleFormControlTextarea1" class="form-label">Note</label>
               <textarea class="form-control" id="note" rows="3"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Complete Checkout</button>
+            <button type="button" class="btn btn-primary" id="btnCheckOutClick">
+              Complete Checkout
+            </button>
           </form>
         </div>
         <div class="col col-xs-6">
