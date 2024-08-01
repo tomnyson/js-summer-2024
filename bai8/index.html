@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Get Location</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+          background-color: #f0f0f0;
+      }
+      button {
+          padding: 10px 20px;
+          font-size: 16px;
+          margin-top: 20px;
+          cursor: pointer;
+      }
+      p {
+          margin-top: 20px;
+          font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Get User's Location</h1>
+    <button onclick="requestLocation()">Request Permission and Get Location</button>
+    <p id="location"></p>
+    <p id="address"></p>
+
+    <script>
+      const apiKey = '8daa159cd5454af78b1489aa6992785a'
+      function requestLocation() {
+          if (navigator.geolocation) {
+              navigator.permissions.query({name: 'geolocation'}).then(function(permissionStatus) {
+                  if (permissionStatus.state === 'granted') {
+                      getLocation();
+                  } else if (permissionStatus.state === 'prompt') {
+                      navigator.geolocation.getCurrentPosition(
+                          showPosition,
+                          showError,
+                          {timeout: 5000}
+                      );
+                  } else {
+                      alert('Geolocation permission denied. Please enable it in your browser settings.');
+                  }
+              });
+          } else {
+              document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+          }
+      }
+
+      function getLocation() {
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+      }
+
+      function showPosition(position) {
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          document.getElementById("location").innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
+          getAddress(latitude, longitude);
+      }
+
+      function showError(error) {
+          switch(error.code) {
+              case error.PERMISSION_DENIED:
+                  document.getElementById("location").innerHTML = "User denied the request for Geolocation."
+                  break;
+              case error.POSITION_UNAVAILABLE:
+                  document.getElementById("location").innerHTML = "Location information is unavailable."
+                  break;
+              case error.TIMEOUT:
+                  document.getElementById("location").innerHTML = "The request to get user location timed out."
+                  break;
+              case error.UNKNOWN_ERROR:
+                  document.getElementById("location").innerHTML = "An unknown error occurred."
+                  break;
+          }
+      }
+      function getAddress(lat, lon) {
+            var url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var address = data.results[0].formatted;
+                    document.getElementById("address").innerHTML = "Address: " + address;
+                })
+                .catch(error => {
+                    console.error('Error fetching the address:', error);
+                    document.getElementById("address").innerHTML = "Unable to retrieve address.";
+                });
+        }
+    </script>
+  </body>
+</html>
